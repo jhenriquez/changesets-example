@@ -1,0 +1,19 @@
+{
+  "name": "changesets-example",
+  "version": "1.0.0",
+  "description": "A basic repository to show case the changeset tool",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"No tests specified\"",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "npm publish"
+  },
+  "keywords": ["changesets", "example", "versioning"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@changesets/changelog-github": "^0.5.1",
+    "@changesets/cli": "^2.29.7"
+  }
+}
