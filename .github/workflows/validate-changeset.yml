@@ -24,11 +24,89 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Check for changeset
+      - name: Check for changeset and prepare comment
+        id: changeset-check
         run: |
-          if [ "$(git diff --name-only origin/development...HEAD | grep '^\.changeset/' | grep -v '\.changeset/README\.md' | wc -l)" -eq 0 ]; then
-            echo "❌ No changeset found. Please run 'npx changeset' to create one."
-            exit 1
+          CHANGESET_FILES=$(git diff --name-only origin/development...HEAD | grep '^\.changeset/' | grep -v '\.changeset/README\.md' || true)
+          
+          # Count files more reliably
+          if [ -z "$CHANGESET_FILES" ] || [ "$CHANGESET_FILES" = "" ]; then
+            CHANGESET_COUNT=0
           else
-            echo "✅ Changeset found!"
+            CHANGESET_COUNT=$(echo "$CHANGESET_FILES" | wc -l)
           fi
+          
+          if [ "$CHANGESET_COUNT" -eq 0 ]; then
+            echo "result=no-changeset" >> $GITHUB_OUTPUT
+            echo "comment<<EOF" >> $GITHUB_OUTPUT
+            echo "## 🚨 No Changeset Detected" >> $GITHUB_OUTPUT
+            echo "" >> $GITHUB_OUTPUT
+            echo "No changeset was found for this pull request. Please add a changeset to document your changes:" >> $GITHUB_OUTPUT
+            echo "" >> $GITHUB_OUTPUT
+            echo "\`\`\`bash" >> $GITHUB_OUTPUT
+            echo "npx changeset" >> $GITHUB_OUTPUT
+            echo "\`\`\`" >> $GITHUB_OUTPUT
+            echo "" >> $GITHUB_OUTPUT
+            echo "This will help track changes for the next release." >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "result=changeset-found" >> $GITHUB_OUTPUT
+            echo "comment<<EOF" >> $GITHUB_OUTPUT
+            echo "## ✅ Changeset Detected" >> $GITHUB_OUTPUT
+            echo "" >> $GITHUB_OUTPUT
+            echo "Found $CHANGESET_COUNT changeset file(s) in this pull request:" >> $GITHUB_OUTPUT
+            echo "" >> $GITHUB_OUTPUT
+            
+            for file in $CHANGESET_FILES; do
+              echo "### 📝 \`$file\`" >> $GITHUB_OUTPUT
+              echo "\`\`\`markdown" >> $GITHUB_OUTPUT
+              cat "$file" >> $GITHUB_OUTPUT
+              echo "\`\`\`" >> $GITHUB_OUTPUT
+              echo "" >> $GITHUB_OUTPUT
+            done
+            
+            echo "Great! Your changes are properly documented for the next release." >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment = `${{ steps.changeset-check.outputs.comment }}`;
+            
+            // Check if there's already a comment from this action
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            
+            const botComment = comments.data.find(comment => 
+              comment.user.type === 'Bot' && 
+              (comment.body.includes('Changeset Detected') || comment.body.includes('No Changeset Detected'))
+            );
+            
+            if (botComment) {
+              // Update existing comment
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: comment
+              });
+            } else {
+              // Create new comment
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: comment
+              });
+            }
+
+      - name: Fail if no changeset
+        if: steps.changeset-check.outputs.result == 'no-changeset'
+        run: |
+          echo "❌ No changeset found. Please run 'npx changeset' to create one."
+          exit 1
