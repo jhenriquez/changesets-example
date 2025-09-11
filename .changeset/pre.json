@@ -5,6 +5,7 @@
     "changesets-example": "1.0.0"
   },
   "changesets": [
+    "famous-symbols-joke",
     "nine-phones-peel"
   ]
 }
