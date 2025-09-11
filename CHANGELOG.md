@@ -1,5 +1,11 @@
 # changesets-example
 
+## 1.0.1-rc.1
+
+### Patch Changes
+
+- [#4](https://github.com/jhenriquez/changesets-example/pull/4) [`7822187`](https://github.com/jhenriquez/changesets-example/commit/782218767c2ce90cb97005dfd215cf0360275aa3) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Fix validation workflow to add PR comments
+
 ## 1.0.1-rc.0
 
 ### Patch Changes
