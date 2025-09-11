@@ -30,9 +30,49 @@ This repository demonstrates automated versioning and changelog management using
 2. **Version packages**: `npm run version`
 3. **Release**: `npm run release`
 
-### Getting Started
+## Development workflow
 
+### 1. Feature Development
 ```bash
-npm install
-npx changeset  # Create your first changeset
+# Work on development branch
+git checkout development
+git checkout -b feat/my-changes
+
+# Make your changes
+# ...
+
+# Create a changeset
+npx changeset
+
+# Commit and push
+git add .
+git commit -m "feat: your feature description"
+git push -u origin feat/my-changes
+
+# Create PR to development
+# The validate-changeset action will check for changesets
+```
+
+### 2. Staging Release
+```bash
+# Merge development to staging
+git checkout staging
+git merge development
+git push
+
+# This triggers staging-release.yml which:
+# - Enters prerelease mode (rc)
+# - Creates a version PR with updated changelogs
+```
+
+### 3. Production Release
+```bash
+# Merge staging to main
+git checkout main
+git merge staging
+git push
+
+# This triggers production-release.yml which:
+# - Exits prerelease mode
+# - Creates a version PR with final versions
 ```
