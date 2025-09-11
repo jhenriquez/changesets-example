@@ -17,7 +17,7 @@ This repository is configured for a three-branch workflow with Changesets automa
 ### 3. Main Branch
 - **Purpose**: Production releases
 - **Automation**: Exits prerelease mode and creates final version PRs
-- **Workflow File**: `.github/workflows/main-release.yml`
+- **Workflow File**: `.github/workflows/production-release.yml`
 
 ## Setting Up Branches
 
@@ -78,7 +78,7 @@ git checkout main
 git merge staging
 git push
 
-# This triggers main-release.yml which:
+# This triggers production-release.yml which:
 # - Exits prerelease mode
 # - Creates a version PR with final versions
 ```
