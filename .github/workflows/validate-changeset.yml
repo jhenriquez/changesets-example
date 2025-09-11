@@ -9,9 +9,6 @@ jobs:
   validate:
     name: Validate Changeset
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
