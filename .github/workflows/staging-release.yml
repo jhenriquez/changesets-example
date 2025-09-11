@@ -9,6 +9,8 @@ jobs:
   release:
     name: Create Prerelease Version PR
     runs-on: ubuntu-latest
+    # Skip if the push is from the changesets release branch
+    if: ${{ github.ref_name != 'changeset-release/staging' }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
