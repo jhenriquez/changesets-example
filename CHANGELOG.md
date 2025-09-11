@@ -1,5 +1,11 @@
 # changesets-example
 
+## 1.0.1-rc.0
+
+### Patch Changes
+
+- [#3](https://github.com/jhenriquez/changesets-example/pull/3) [`db831a3`](https://github.com/jhenriquez/changesets-example/commit/db831a3eddd8748bcbc0afcf439d2760491eeada) Thanks [@jhenriquez](https://github.com/jhenriquez)! - Moved the BRANCH_SETUP.md content into the README.md. Removed the BRANCH_SETUP.md
+
 ## 1.0.0
 
 ### Initial Release
