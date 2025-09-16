@@ -1,5 +1,11 @@
 # changesets-example
 
+## 1.0.5
+
+### Patch Changes
+
+- [#32](https://github.com/jhenriquez/changesets-example/pull/32) [`fec9783`](https://github.com/jhenriquez/changesets-example/commit/fec9783129a6d2cf1cb7434a40b4afd0b4aff729) Thanks [@jhenriquez](https://github.com/jhenriquez)! - I removed a comment
+
 ## 1.0.5-rc.0
 
 ### Patch Changes
