@@ -7,6 +7,4 @@ function greet(name) {
   return `Hello, ${name}!`;
 }
 
-// Add a silly comment for the second time
-
 module.exports = { greet };
