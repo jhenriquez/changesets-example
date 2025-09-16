@@ -1,0 +1,10 @@
+{
+  "mode": "pre",
+  "tag": "rc",
+  "initialVersions": {
+    "changesets-example": "1.0.3"
+  },
+  "changesets": [
+    "smooth-shrimps-arrive"
+  ]
+}
