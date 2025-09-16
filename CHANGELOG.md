@@ -1,5 +1,11 @@
 # changesets-example
 
+## 1.0.3
+
+### Patch Changes
+
+- [#22](https://github.com/jhenriquez/changesets-example/pull/22) [`24d996e`](https://github.com/jhenriquez/changesets-example/commit/24d996eae8e73ab1d99a26cb21d31b3dfb7c56cc) Thanks [@jhenriquez](https://github.com/jhenriquez)! - Removes a silly comment
+
 ## 1.0.3-rc.0
 
 ### Patch Changes
