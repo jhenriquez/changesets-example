@@ -30,7 +30,7 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          version: bash -c "npx changeset pre exit && npx changeset version"
+          version: npx changeset pre exit && npx changeset version
           title: 'Release Version Packages'
           commit: 'Version packages'
         env:
