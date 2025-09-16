@@ -7,7 +7,7 @@ on:
 
 jobs:
   release:
-    name: Create Final Version PR
+    name: Create Release Versions PR
     runs-on: ubuntu-latest
     # Skip if the push is from the changesets release branch or from a Version PR merger
     if: ${{ !contains(github.event.head_commit.message, 'changeset-release/main') }}
@@ -26,14 +26,11 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Exit Prerelease Mode
-        run: npx changeset pre exit
-
-      - name: Create Release Pull Request or Publish to npm
+      - name: Exists Prerelease and Creates The Versions Pull Request
         id: changesets
         uses: changesets/action@v1
         with:
-          version: npx changeset version
+          version: bash -c "npx changeset pre exit && npx changeset version"
           title: 'Release Version Packages'
           commit: 'Version packages'
         env:
