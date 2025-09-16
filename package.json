@@ -1,6 +1,6 @@
 {
   "name": "changesets-example",
-  "version": "1.0.1-rc.1",
+  "version": "1.0.1",
   "description": "A basic repository to show case the changeset tool",
   "main": "src/index.js",
   "scripts": {
