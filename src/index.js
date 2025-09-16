@@ -7,4 +7,6 @@ function greet(name) {
   return `Hello, ${name}!`;
 }
 
+// Add a silly change
+
 module.exports = { greet };

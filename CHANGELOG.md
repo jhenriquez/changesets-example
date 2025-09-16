@@ -1,5 +1,11 @@
 # changesets-example
 
+## 1.0.2-rc.0
+
+### Patch Changes
+
+- [#13](https://github.com/jhenriquez/changesets-example/pull/13) [`b4c1f7e`](https://github.com/jhenriquez/changesets-example/commit/b4c1f7e5e48d556b886b823fd00ae657d4a38df4) Thanks [@jhenriquez](https://github.com/jhenriquez)! - Added a simple comment to demonstrate the functionality
+
 ## 1.0.1
 
 ### Patch Changes
