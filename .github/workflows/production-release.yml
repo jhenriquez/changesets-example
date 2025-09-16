@@ -28,6 +28,9 @@ jobs:
 
       - name: Run final versioning (exit pre + version)
         run: npm run version:release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
       - name: Create PR with version changes
         uses: peter-evans/create-pull-request@v6
