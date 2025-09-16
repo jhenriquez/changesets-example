@@ -26,12 +26,20 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Exists Prerelease and Creates The Versions Pull Request
-        id: changesets
-        uses: changesets/action@v1
+      - name: Run final versioning (exit pre + version)
+        run: npm run version:release
+
+      - name: Create PR with version changes
+        uses: peter-evans/create-pull-request@v6
         with:
-          version: npm run version:release
-          title: 'Release Version Packages'
-          commit: 'Version packages'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Version packages
+          title: Release Version Packages
+          body: |
+            This PR finalizes versions for production:
+            - Exited prerelease mode
+            - Applied Changesets versioning and updated CHANGELOG
+          branch: changeset-release/main
+          delete-branch: true
+          labels: release
+          draft: false
