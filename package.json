@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"No tests specified\"",
-    "release": "npm publish"
+    "version:rc": "changeset pre enter rc && changeset version",
+    "version:release": "changeset pre exit && changeset version"
   },
   "keywords": [
     "changesets",

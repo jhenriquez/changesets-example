@@ -30,7 +30,7 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          version: npx changeset pre enter rc && npx changeset version
+          version: npm run version:rc
           title: 'Release Candidate Version Packages'
           commit: 'Version packages (rc)'
         env:
